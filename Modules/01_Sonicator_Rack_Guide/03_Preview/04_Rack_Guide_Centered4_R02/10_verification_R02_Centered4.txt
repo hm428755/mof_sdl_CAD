@@ -1,0 +1,11 @@
+R02 Centered4 Preview
+PASS:2racks,2independenttopplates,4guidesperrack,8total,32vials.
+PASS:allgeneratedpartsvalid;STEPassemblyreimport74solids.
+PASS:guides/tanksurfaceminimum1.726891mm;rod-to-rack1mm;verticalfloor2mm.
+PASS:rackcornersonimportedflatfloorface;224x190combinedfootprint.
+PASS:slotedgeopeningligament2.05mm;M3slots3.4x3.9.
+MEASURED:fixed-centeryaw-8.069301/8.069301deg.
+LIMITATION:centeredguidesallowlargeyaw;repeatablerobotpickupposeNOTVERIFIED.
+UNRUN:originalroutingprepare/check,Windowsbat,robotmotion,dynamics,strength.
+UNRESOLVED:water/gripper/vialsupport,clamp/tablefasteningandvibration.
+PREVIEWONLY,notmanufacturingreleaseoroperationalapproval.

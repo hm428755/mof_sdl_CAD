@@ -13,3 +13,6 @@ Next: inspect two-rack arrangement with user; confirm rack/gripper/water and ret
 
 ## Latest R02 4-rod variant
 Current user requested R02 and fewer rods. Added Rack_Guide_4Rod family:4guides perrack/8total, preserved originalR02. Source02_Work/03_Rack_Guide_4Rod_R02; Preview03_Preview/03_Rack_Guide_4Rod_R02. Windowsroot C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD. Localgeneration/reimportverified; Windowslaunchersnotexecuted. Fixed-centeryaw-1.243/+0.948deg, minimumguide-tankdistance1.464mm. Seevariantdesignbasisforlimitations. GitHub upload succeeded; R02 four-guide Windows ZIP is available under Downloads.
+
+## Latest user-selected layout: Centered4 / R02
+Oneguideateachsidecenter,4perrack/8total. Source02_Work/04_Rack_Guide_Centered4_R02,Preview03_Preview/04_Rack_Guide_Centered4_R02. Prioroffset4and8guidevariantsretained. Centeredlayoutfixed-centeryaw±8.0693deg;repeatablepickuporientationnotestablished. Windowslauncher05_Build_CAD_Centered4_R02.bat.

@@ -26,3 +26,9 @@ C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD\Modules\01_Sonicator_Rack_Guid
 Windows 배치 파일은 작성·검토했으나 이 Linux 서버에서 Windows 실행을 실제 검증하지는 못했습니다. 같은 Python 생성 소스는 서버에서 실행하여 CAD를 검사했습니다. FreeCAD 등 CAD 뷰어 설치는 별도입니다.
 
 첨부 AGENTS/harness 원본은 References에 보존했습니다. 원 프로젝트의 revision router는 여전히 미첨부이며 해당 prepare/check가 통과한 상태는 아닙니다. 기존8봉/랙 R02는 보존하고 이번4봉/랙 안은 별도 family 폴더로 구분했습니다. 현재 세션은 Windows PC에 직접 접근해 파일을 저장하지 못하며, GitHub 업로드가 완료되었습니다. Downloads/Sonicator_R02_4Rod_Windows.zip에서 패키지를 받을 수 있습니다.
+
+## 최신: 각 변 중앙 4봉 비교안
+
+사용자가 각변중앙 배치를 요청하여 별도 Centered4 family를 추가했습니다. 이 안을 생성하려면 `05_Build_CAD_Centered4_R02.bat`를 실행합니다. 기존 `03_Build_CAD_Windows_R02.bat`는 이전 엇갈린4봉안을 재생성합니다. 설치는 동일한02Setup을사용합니다.
+
+중앙배치 출력은 `Modules/01_Sonicator_Rack_Guide/03_Preview/04_Rack_Guide_Centered4_R02`입니다. 회전위치정밀도가약한배치이므로 로봇반복픽업을보장하는최종설계로간주하지않습니다.

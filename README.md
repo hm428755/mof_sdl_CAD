@@ -1,3 +1,24 @@
+# 최신 R02 — 각 변 중앙에 봉 1개씩
+
+사용자가 요청한 중앙4봉안을 별도 family로 추가했습니다. 랙2개/상판2분할 유지, 랙당4봉/총8봉입니다.
+
+- [중앙4봉 Windows ZIP 다운로드](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/Sonicator_R02_Centered4_Windows.zip)
+- [중앙4봉 조립 STEP](Modules/01_Sonicator_Rack_Guide/03_Preview/04_Rack_Guide_Centered4_R02/01_Sonicator_Two_Racks_Split_Top_Preview_R02_Centered4.step)
+
+![중앙4봉 상면도](Modules/01_Sonicator_Rack_Guide/03_Preview/04_Rack_Guide_Centered4_R02/05_Top_Two_Plates_Preview_R02_Centered4.png)
+
+| R02 비교안 | 배치 | 랙당 봉 | 고정중심 회전 첫접촉 |
+|---|---|---:|---|
+| 원래8봉 | 장변/단변 각2개 |8|약±0.948°|
+| 엇갈린4봉 | 각변 중앙에서엇갈림 |4|약−1.243°/+0.948°|
+| 최신중앙4봉 | 각변정중앙 |4|약±8.069°|
+
+각도는 단순형상계산이며 실제운전/공차/진동검증이아닙니다. 중앙4봉은회전여유가커서정밀한반복로봇픽업을보장하지않습니다. 이전안은덮어쓰지않고보존했습니다.
+
+Windows 새경로와실행:04_Windows_CAD_README_R02.md참고. 중앙안은05_Build_CAD_Centered4_R02.bat,이전엇갈린안은03_Build_CAD_Windows_R02.bat로생성합니다. 검토용Preview이며클램프/실제그리퍼/수위상세미확정입니다.
+
+---
+
 # 최신 R02 — 랙당 4봉 변형안
 
 랙2개/독립상판2개를 유지하고 랙당 가이드봉4개(총8개)로 줄였습니다. 네변에서 엇갈리게 배치했습니다. 기존8봉/랙 R02는 아래와 기존폴더에 보존합니다.
