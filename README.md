@@ -1,3 +1,21 @@
+# 조립 STEP 하나만 다운로드
+
+**[조립 STEP 1개 ZIP 받기](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/Assembly_STEP_Only.zip)**
+
+압축을 풀면 `Assembly_R02.step` 한 개만 있습니다. Python이나 편집기 설치 없이 CAD 프로그램에서 열면 됩니다.
+
+이전 `.step` 링크는 서버가 `text/plain`으로 응답하여 브라우저에 텍스트로 열릴 수 있었습니다. 이 ZIP은 바이너리 다운로드용입니다. 다운로드 링크 대신 파일 화면이 열리면 GitHub의 **Download raw file** 버튼을 사용하세요.
+
+Windows에서 지정 폴더로 STEP만 직접 저장하려면 PowerShell에서 아래를 실행할 수도 있습니다.
+
+```powershell
+$cadFolder = 'C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD'
+New-Item -ItemType Directory -Force -Path $cadFolder | Out-Null
+Invoke-WebRequest -UseBasicParsing -Uri 'https://raw.githubusercontent.com/hm428755/mof_sdl_CAD/main/Downloads/Sonicator_R02_TrayR20_Assembly.step' -OutFile (Join-Path $cadFolder 'Assembly_R02.step')
+```
+
+---
+
 # MOF CAD 편집기 — 사용자 트레이 R20 적용
 
 보내주신 **트레이 STEP 원본(127.76 × 85.48 × 45 mm)**을 변형 없이 조립에 넣었습니다. R02 치구는 두 트레이·상판 2분할·트레이당 중앙 봉 4개를 유지합니다. 파일의 R20은 트레이 원본 버전이며, 치구의 R02와 구분합니다.
