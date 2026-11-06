@@ -72,15 +72,23 @@ for index,cx in enumerate(RACK_CENTERS_X):
   add(label+'_M3_screw_envelope_%02d'%j,screw,(.28,.28,.30))
   washer=cyl(WASHER_DIAMETER/2,RIM_Y+FRAME_THICKNESS,yhead,x,z).cut(cyl(WASHER_INNER_DIAMETER/2,RIM_Y+FRAME_THICKNESS-EPS,yhead+EPS,x,z))
   add(label+'_washer_envelope_%02d'%j,washer,(.55,.55,.56))
- rack=box(RACK_WIDTH_X,RACK_HEIGHT,RACK_LENGTH_Z,(cx,FLOOR_Y+RACK_HEIGHT/2,0))
- for i,x in enumerate(VIAL_X_POSITIONS):
-  for j,z in enumerate(VIAL_Z_POSITIONS):
-   rack=rack.cut(cyl(VIAL_HOLE_DIAMETER/2,FLOOR_Y-EPS,FLOOR_Y+RACK_HEIGHT+EPS,cx+x,z))
+ if RACK_MODEL=='uploaded_r20':
+  tray_path=ROOT/'01_References'/'05_VialTray_Grip24x20_Preview_R20.step'
+  tray_original=cq.importers.importStep(str(tray_path)).val()
+  assert hashlib.sha256(tray_path.read_bytes()).hexdigest()==editor['REFERENCE_TRAY']['source_sha256']
+  rack=tray_original.rotate((0,0,0),(1,1,1),-120).translate((cx,FLOOR_Y,0))
+  assert abs(rack.Volume()-tray_original.Volume())<1.e-5
+ else:
+  rack=box(RACK_WIDTH_X,RACK_HEIGHT,RACK_LENGTH_Z,(cx,FLOOR_Y+RACK_HEIGHT/2,0))
+  for x,z in VIAL_POSITIONS:rack=rack.cut(cyl(VIAL_HOLE_DIAMETER/2,FLOOR_Y-EPS,FLOOR_Y+RACK_HEIGHT+EPS,cx+x,z))
+  rack=rack.cut(box(GRIP_HOLE_X,RACK_HEIGHT+2*EPS,GRIP_HOLE_Z,(cx,FLOOR_Y+RACK_HEIGHT/2,0)))
+ if SHOW_VIALS:
+  for i,(x,z) in enumerate(VIAL_POSITIONS):
    vial=cyl(VIAL_DIAMETER/2,FLOOR_Y+VIAL_BASE_ABOVE_FLOOR,FLOOR_Y+VIAL_BASE_ABOVE_FLOOR+VIAL_HEIGHT,cx+x,z)
-   add(label+'_Vial_REFERENCE_%02d_%02d'%(i,j),vial,(.60,.80,.87))
- rack=rack.cut(box(GRIP_HOLE_X,RACK_HEIGHT+2*EPS,GRIP_HOLE_Z,(cx,FLOOR_Y+RACK_HEIGHT/2,0)))
+   assert vial.intersect(rack).Volume()<1.e-5
+   add(label+'_Vial_REFERENCE_%02d'%i,vial,(.60,.80,.87))
  rack_shapes.append(rack)
- add(label+'_Rack_REFERENCE_assumed_holes',rack,(.88,.33,.21) if cx<0 else (.58,.36,.77))
+ add(label+'_Rack_REFERENCE_'+RACK_MODEL,rack,(.88,.33,.21) if cx<0 else (.58,.36,.77))
  # External locator tabs belong to this independent half, not to the neighboring half.
  sx=-1 if cx<0 else 1
  x_outer=sx*(FRAME_WIDTH_X/2+LOCATOR_RIM_GAP+LOCATOR_THICKNESS/2)
@@ -170,14 +178,16 @@ checks['assumed_water_height_mm']=WATER_HEIGHT
 checks['assumed_water_constraints_satisfied']=SAMPLE_LIQUID_HEIGHT<=WATER_HEIGHT<=GRIPPER_FINGER_HEIGHT-SPLASH_MARGIN and WATER_HEIGHT<RACK_HEIGHT
 checks['assumed_finger_water_clearance_mm']=GRIPPER_FINGER_HEIGHT-WATER_HEIGHT
 checks['rack_reference_volume_each_mm3']=[r.Volume() for r in rack_shapes]
-vial_n=len(VIAL_X_POSITIONS)*len(VIAL_Z_POSITIONS)
+vial_n=len(VIAL_POSITIONS)
 checks['assumed_robot_carried_mass_one_rack_kg']=rack_shapes[0].Volume()*ASSUMED_RACK_DENSITY_KG_MM3+vial_n*(ASSUMED_EMPTY_VIAL_MASS_KG+ASSUMED_CAP_MASS_KG+ASSUMED_LIQUID_MASS_PER_VIAL_KG)+ASSUMED_GRIPPER_MASS_KG+ASSUMED_ADAPTER_MASS_KG
 checks['stationary_solids_volume_mm3']=sum(s.Volume() for n,s,c in parts if not any(k in n for k in ['Manufacturer','Rack_REFERENCE','Vial_REFERENCE']))
 checks['assumed_stationary_steel_mass_kg']=checks['stationary_solids_volume_mm3']*ASSUMED_STEEL_DENSITY_KG_MM3
 checks['original_project_routing_check']='NOT RUN - original router not supplied'
 checks['stage']='EDITOR PREVIEW: assumptions only; not a manufacturing or robot-operation approval.'
 checks['editor_config']=config
-assert checks['rack_count']==2 and checks['top_plate_count']==2 and checks['vial_count']==32 and checks['guide_count']==2*len(local_rods(0))
+checks['rack_model']=RACK_MODEL
+if RACK_MODEL=='uploaded_r20':checks['tray_source_metadata']=editor['REFERENCE_TRAY']
+assert checks['rack_count']==2 and checks['top_plate_count']==2 and checks['vial_count']==(32 if SHOW_VIALS else 0) and checks['guide_count']==2*len(local_rods(0))
 assert abs(checks['rack_to_rack_gap_mm']-config['rack_gap'])<1e-5
 assert checks['minimum_guide_pair_distance_mm']>.1
 assert checks['minimum_rod_to_reference_surface_distance_mm']>.05
@@ -190,7 +200,7 @@ def render_iso(include_ref,path,limits,title):
   if not include_ref and (n.startswith('Manufacturer') or n.startswith('Table_stop')):continue
   verts,tris=s.tessellate(.8)
   v=np.array([[p.x,p.z,p.y] for p in verts])
-  ax.add_collection3d(Poly3DCollection(v[np.array(tris)],facecolor=c,edgecolor='none',alpha=.10 if n.startswith('Manufacturer') else 1.))
+  ax.add_collection3d(Poly3DCollection(v[np.array(tris)],facecolors=c,edgecolor='none',shade=True,alpha=.10 if n.startswith('Manufacturer') else 1.))
  ax.set(xlim=limits[0],ylim=limits[1],zlim=limits[2],xlabel='X mm',ylabel='Z mm',zlabel='Y mm (vertical)')
  ax.set_box_aspect(tuple(b-a for a,b in limits));ax.view_init(38,-58);ax.set_title(title)
  fig.savefig(path,dpi=150);plt.close(fig)
@@ -206,11 +216,13 @@ for idx,cx in enumerate(RACK_CENTERS_X):
  ax.add_patch(Rectangle((xmin,-FRAME_LENGTH_Z/2),xmax-xmin,FRAME_LENGTH_Z,fill=False,edgecolor=color,lw=2))
  ax.add_patch(Rectangle((cx-OPENING_WIDTH_X/2,-OPENING_LENGTH_Z/2),OPENING_WIDTH_X,OPENING_LENGTH_Z,fill=False,edgecolor=color,lw=2))
  ax.add_patch(Rectangle((cx-RACK_WIDTH_X/2,-RACK_LENGTH_Z/2),RACK_WIDTH_X,RACK_LENGTH_Z,facecolor='coral' if cx<0 else 'mediumpurple',alpha=.18))
- ax.text(cx,0,f'{"LEFT" if cx<0 else "RIGHT"}\nRACK {RACK_WIDTH_X:g} x {RACK_LENGTH_Z:g}\n16 VIALS',ha='center',va='center',fontsize=10)
+ if RACK_MODEL=='uploaded_r20':
+  for vx,vz in VIAL_POSITIONS:ax.add_patch(Circle((cx+vx,vz),editor['REFERENCE_TRAY']['vial_hole_diameter']/2,fill=False,edgecolor='slategray',linewidth=.6))
+ ax.text(cx,0,f'{"LEFT" if cx<0 else "RIGHT"}\nRACK {RACK_WIDTH_X:g} x {RACK_LENGTH_Z:g}\n16 SLOTS',ha='center',va='center',fontsize=10)
  for x,z,a in local_rods(cx):
   ax.add_patch(Circle((x,z),ROD_DIAMETER/2,color='goldenrod'))
   ax.text(x,z+7,f'{x:g},{z:g}',ha='center',fontsize=6)
- ax.plot([cx,cx],[-105,105],lw=.6,ls=':',color=color)
+ ax.plot([cx,cx],[-RACK_LENGTH_Z/2-10,RACK_LENGTH_Z/2+10],lw=.6,ls=':',color=color)
 ax.annotate('',(-config['rack_gap']/2,0),(config['rack_gap']/2,0),arrowprops={'arrowstyle':'<->','color':'black'})
 ax.text(0,14,f"{config['rack_gap']:g} mm\nrack gap",ha='center',fontsize=8)
 ax.set(xlim=(-180,180),ylim=(-150,150),xlabel='X mm',ylabel='Z mm',title=f"R02 EDITOR: {GUIDE_LAYOUT}, {2*len(local_rods(0))} guides, diameter {ROD_DIAMETER:g}\nRack {RACK_WIDTH_X:g} x {RACK_LENGTH_Z:g}; openings {OPENING_WIDTH_X:g} x {OPENING_LENGTH_Z:g}; frame thickness {FRAME_THICKNESS:g}")
@@ -224,7 +236,7 @@ for cx in RACK_CENTERS_X:
  for x in (cx-RACK_WIDTH_X/2-ROD_RACK_GAP-ROD_DIAMETER/2,cx+RACK_WIDTH_X/2+ROD_RACK_GAP+ROD_DIAMETER/2):
   ax.add_patch(Rectangle((x-ROD_DIAMETER/2,FLOOR_Y+ROD_BOTTOM_GAP),ROD_DIAMETER,RIM_Y-FLOOR_Y-ROD_BOTTOM_GAP,color='goldenrod'))
  ax.add_patch(Rectangle((cx-RACK_WIDTH_X/2,FLOOR_Y),RACK_WIDTH_X,RACK_HEIGHT,fill=False,edgecolor='tomato',lw=2))
- for x in VIAL_X_POSITIONS:
+ for x in sorted({x for x,z in VIAL_POSITIONS}) if SHOW_VIALS else []:
   ax.add_patch(Rectangle((cx+x-VIAL_DIAMETER/2,FLOOR_Y+VIAL_BASE_ABOVE_FLOOR),VIAL_DIAMETER,VIAL_HEIGHT,fill=False,edgecolor='teal'))
 ax.axhline(FLOOR_Y+WATER_HEIGHT,ls='--',color='blue',label=f'ASSUMED water {WATER_HEIGHT:g} mm above floor')
 ax.axhline(FLOOR_Y+GRIPPER_FINGER_HEIGHT,ls=':',color='purple',label=f'ASSUMED lowest finger {GRIPPER_FINGER_HEIGHT:g} mm above floor')

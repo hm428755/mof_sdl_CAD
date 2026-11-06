@@ -1,0 +1,14 @@
+R02 fixture / user tray R20 update
+PASS: imported reference1validsolid,127.76x85.48x45mm;16cylindrical seat centers measured.
+PASS: sourceSHA256preserved, originaltray used without scaling; placedvolumeseach112507.055982mm3 matchsource.
+PASS: exactuploadedtraygenerationviaeditorinselectedexternaloutputfolder;reimport42solids including2actualtrays,8guides,2plates;noinventedvialbodiesbydefault.
+PASS: tray-to-guide1mm;guide-to-manufacturer-reference2mmminimum;bottomvertical2mm;traygap24;combinedfootprint194.96x127.76.
+PASS: predictedfixed-centerfirstcontactyaw±9.704663deg checkedagainstrotatedactualtrayBRepdistance:at9.654663deg clearance0.010253mm,at9.754663deg contact0.
+PASS: optionalØ16.6x60referencevialenvelopes at16measuredpositions/nativebase6 have0intersectionvolume withtray; physicalseat/caps remainassumed.
+PASS: browseractualtraydefault/read-onlydimensions,16holeoutlines/each,parametricmode-switch.
+PASS:9configuration/storage tests,includingrequestedWindowsdefaultpathandpreferencepersistence,busy-path-change rejection,immutableactualdimensions,legacysettingcompatibility.
+PASS: browseroutputlocationchosenoutsideprogramdirectory,withspaces;persistedafterreload;actualCADwritteninthatchosenlocation.
+PASS: changingoutputlocationaftercompletiondoesnotbreakpreviousresultdownload.
+PASS: JavaScript/Pythonsyntax,packageCRC,GitHubdownloadverification.
+UNRUN: actualWindowslaunch/defaultfileassociation;Python3.12installationonuserPC.
+UNRESOLVED: realminimumoperatingwaterlevel,gripper/caps/seat,clamp/tableanchoring,strength/vibration/robotmotion;central4guideyawissubstantial. Previewonly.

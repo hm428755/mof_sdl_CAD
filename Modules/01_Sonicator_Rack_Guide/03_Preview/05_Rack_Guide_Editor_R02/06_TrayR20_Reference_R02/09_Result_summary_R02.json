@@ -1,0 +1,229 @@
+{
+  "ok": true,
+  "checks": {
+    "manufacturer_bbox_mm": [
+      385.00000019999993,
+      299.85000010000005,
+      318.09000019999996
+    ],
+    "manufacturer_solid_count": 0,
+    "manufacturer_sha256": "e64536ebe914a9a11ef498c17eb93e9cb51664adc635031326b4bd3673b88af2",
+    "reimport_solid_count": 42,
+    "assembly_bbox_mm": [
+      385.0000002,
+      306.4500001000002,
+      322.4900001
+    ],
+    "rack_count": 2,
+    "vial_count": 0,
+    "top_plate_count": 2,
+    "guide_count": 8,
+    "per_module_guides": 4,
+    "locator_to_reference_min_distance_mm": 0.0,
+    "rack_centers_X_mm": [
+      -54.74,
+      54.74
+    ],
+    "rack_footprint_XZ_mm": [
+      194.96,
+      127.76
+    ],
+    "rack_to_rack_gap_mm": 23.999999999999986,
+    "plate_to_plate_gap_mm": 2.0,
+    "minimum_rod_to_reference_surface_distance_mm": 2.0,
+    "minimum_guide_pair_distance_mm": 2.0,
+    "minimum_rod_to_any_rack_distance_mm": 0.9999999999999716,
+    "per_rack_reference_surface_distance_mm": [
+      0.0,
+      0.0
+    ],
+    "rack_bottom_corner_to_floor_face_max_mm": 0.0,
+    "rod_floor_vertical_gap_mm": 2.0,
+    "rod_length_mm": 148.0,
+    "rod_coordinates_XZ_mm": [
+      [
+        -103.48,
+        0
+      ],
+      [
+        -6.0,
+        0
+      ],
+      [
+        -54.74,
+        69.88
+      ],
+      [
+        -54.74,
+        -69.88
+      ],
+      [
+        6.0,
+        0
+      ],
+      [
+        103.48,
+        0
+      ],
+      [
+        54.74,
+        69.88
+      ],
+      [
+        54.74,
+        -69.88
+      ]
+    ],
+    "rack_nominal_guide_clearance_mm": 1.0,
+    "nominal_slot_opening_ligament_mm": 2.05,
+    "slot_adjusted_rack_clearance_range_mm": [
+      0.75,
+      1.25
+    ],
+    "ring_placement_XZ_each_side_mm": [
+      2.0,
+      1.999999999999993
+    ],
+    "fixed_center_positive_yaw_contact_deg": 9.704662830935263,
+    "fixed_center_negative_yaw_contact_deg": -9.704662830935263,
+    "assumed_water_height_mm": 11.0,
+    "assumed_water_constraints_satisfied": true,
+    "assumed_finger_water_clearance_mm": 7.0,
+    "rack_reference_volume_each_mm3": [
+      112507.05598208377,
+      112507.05598208368
+    ],
+    "assumed_robot_carried_mass_one_rack_kg": 1.512729051151626,
+    "stationary_solids_volume_mm3": 291910.0919291994,
+    "assumed_stationary_steel_mass_kg": 2.335280735433595,
+    "original_project_routing_check": "NOT RUN - original router not supplied",
+    "stage": "EDITOR PREVIEW: assumptions only; not a manufacturing or robot-operation approval.",
+    "editor_config": {
+      "rack_width": 85.48,
+      "rack_length": 127.76,
+      "rack_height": 45.0,
+      "rack_gap": 24.0,
+      "opening_clearance": 2.0,
+      "frame_thickness": 3.0,
+      "rod_diameter": 10.0,
+      "rod_gap": 1.0,
+      "bottom_gap": 2.0,
+      "rod_chamfer": 1.0,
+      "side_offset": 40.0,
+      "end_offset": 30.0,
+      "water_height": 11.0,
+      "finger_height": 18.0,
+      "sample_height": 10.0,
+      "vial_diameter": 16.6,
+      "vial_height": 60.0,
+      "layout": "centered",
+      "rack_model": "uploaded_r20",
+      "show_vials": false
+    },
+    "rack_model": "uploaded_r20",
+    "tray_source_metadata": {
+      "source_sha256": "e44c600b73f977db3b3d55350ebb0a78765f1d7e1b1f62d81dbe78f793f5a0da",
+      "source_file": "05_VialTray_Grip24x20_Preview_R20.step",
+      "native_bbox": [
+        -63.88,
+        63.88,
+        -42.74,
+        42.74,
+        0.0,
+        45.00000000000006
+      ],
+      "width_x": 85.48,
+      "length_z": 127.76,
+      "height": 45.00000000000006,
+      "volume_mm3": 112507.05598208372,
+      "native_hole_centers_xy": [
+        [
+          -52.5,
+          -19.0
+        ],
+        [
+          -52.5,
+          0.0
+        ],
+        [
+          -52.5,
+          19.0
+        ],
+        [
+          -38.0,
+          -31.5
+        ],
+        [
+          -38.0,
+          31.5
+        ],
+        [
+          -19.0,
+          -31.5
+        ],
+        [
+          -19.0,
+          31.5
+        ],
+        [
+          0.0,
+          -31.5
+        ],
+        [
+          0.0,
+          31.5
+        ],
+        [
+          19.0,
+          -31.5
+        ],
+        [
+          19.0,
+          31.5
+        ],
+        [
+          38.0,
+          -31.5
+        ],
+        [
+          38.0,
+          31.5
+        ],
+        [
+          52.5,
+          -19.0
+        ],
+        [
+          52.5,
+          0.0
+        ],
+        [
+          52.5,
+          19.0
+        ]
+      ],
+      "vial_hole_diameter": 17.6,
+      "upper_hole_diameter": 18.6,
+      "bottom_corner_radius": 3.18,
+      "transform": "native (X,Y,Z) -> bath (Y,Z,X), then translate (rack_center_X,-148,0); no scaling",
+      "assumed_vial_base_height": 6.0,
+      "reference_vial_tray_overlap_max_mm3": 0.0,
+      "grip_dimensions_from_filename_only": [
+        24,
+        20
+      ]
+    }
+  },
+  "files": [
+    "07_Geometry_checks_R02_Editor.json",
+    "02_Left_Guide_Module_Preview_R02_Editor.step",
+    "06_Section_Two_Racks_Preview_R02_Editor.png",
+    "00_Input_settings_R02.json",
+    "08_Guides_And_Two_Racks_Preview_R02_Editor.png",
+    "04_Isometric_Two_Racks_Preview_R02_Editor.png",
+    "05_Top_Two_Plates_Preview_R02_Editor.png",
+    "03_Right_Guide_Module_Preview_R02_Editor.step",
+    "10_Generation_log_R02.txt",
+    "01_Sonicator_Two_Racks_Split_Top_Preview_R02_Editor.step"
+  ]
+}

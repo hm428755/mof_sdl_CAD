@@ -1,0 +1,22 @@
+{
+  "rack_width": 85.48,
+  "rack_length": 127.76,
+  "rack_height": 45.00000000000006,
+  "rack_gap": 24.0,
+  "opening_clearance": 2.0,
+  "frame_thickness": 3.0,
+  "rod_diameter": 10.0,
+  "rod_gap": 1.0,
+  "bottom_gap": 2.0,
+  "rod_chamfer": 1.0,
+  "side_offset": 40.0,
+  "end_offset": 30.0,
+  "water_height": 11.0,
+  "finger_height": 18.0,
+  "sample_height": 10.0,
+  "vial_diameter": 16.6,
+  "vial_height": 60.0,
+  "layout": "centered",
+  "rack_model": "uploaded_r20",
+  "show_vials": false
+}

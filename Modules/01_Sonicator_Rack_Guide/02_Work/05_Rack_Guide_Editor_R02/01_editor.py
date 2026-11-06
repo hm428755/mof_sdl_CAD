@@ -1,32 +1,64 @@
 """Local-only CAD editor. Standard library UI server; CAD runs in a child process."""
 from pathlib import Path
-import argparse,json,math,os,subprocess,sys,threading,time,webbrowser,secrets
+import argparse,json,math,os,subprocess,sys,threading,time,webbrowser,secrets,tempfile
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from urllib.parse import urlparse,unquote
 from datetime import datetime
 HERE=Path(__file__).resolve().parent
 MODULE=HERE.parents[1]
 PROJECT=HERE.parents[3]
-RESULTS=MODULE/'03_Preview'/'05_Rack_Guide_Editor_R02'
+WINDOWS_STORAGE=r'C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD'
+OUTPUT_PREF=HERE/'06_Output_Location_R02.json'
+OUTPUT_SUBDIR=Path('Modules')/'01_Sonicator_Rack_Guide'/'03_Preview'/'05_Rack_Guide_Editor_R02'
+def default_storage(windows=None):
+ return WINDOWS_STORAGE if (os.name=='nt' if windows is None else windows) else str(PROJECT)
+def load_storage():
+ try:
+  p=Path(json.loads(OUTPUT_PREF.read_text(encoding='utf-8'))['directory'])
+  if p.is_absolute():return p
+ except (OSError,ValueError,KeyError,TypeError):pass
+ return Path(default_storage())
+STORAGE=load_storage()
+RESULTS=STORAGE/OUTPUT_SUBDIR
+def validate_storage(raw):
+ if not isinstance(raw,str) or not raw.strip():raise ValueError('저장할 폴더의 전체 경로를 입력하세요.')
+ p=Path(raw.strip()).expanduser()
+ if not p.is_absolute():raise ValueError('상대 경로 대신 C:\\Users\\... 같은 전체 경로를 입력하세요.')
+ if p.exists() and not p.is_dir():raise ValueError('파일이 아닌 폴더 경로를 선택하세요.')
+ return p.resolve()
+def open_local_path(p):
+ if os.name=='nt':os.startfile(str(p))
+ elif sys.platform=='darwin':subprocess.Popen(['open',str(p)])
+ else:raise ValueError('이 PC에서는 자동 열기를 지원하지 않습니다. 화면의 경로로 폴더를 여세요.')
 LAST=HERE/'05_Last_Settings_R02.json'
 # name,label,default,min,max,group; all dimensional entries mm.
 FIELDS=[
- ('rack_width','랙 폭 X',100,70,115,'랙·상판'),('rack_length','랙 길이 Z',190,130,195,'랙·상판'),
- ('rack_height','랙 높이',20,12,40,'랙·상판'),('rack_gap','두 랙 사이 간격',24,14,45,'랙·상판'),
+ ('rack_width','랙 폭 X',85.48,70,115,'랙·상판'),('rack_length','랙 길이 Z',127.76,100,195,'랙·상판'),
+ ('rack_height','랙 높이',45,12,60,'랙·상판'),('rack_gap','두 랙 사이 간격',24,14,45,'랙·상판'),
  ('opening_clearance','상판 통과 여유 / 한쪽',2,1,4,'랙·상판'),('frame_thickness','상판 두께',3,2,8,'랙·상판'),
  ('rod_diameter','봉 지름',10,6,12,'봉'),('rod_gap','랙–봉 틈새',1,.5,3,'봉'),
  ('bottom_gap','봉–바닥 높이',2,1,8,'봉'),('rod_chamfer','봉 양끝 모따기',1,.5,2,'봉'),
- ('side_offset','장변 봉: 중앙에서 이동',60,0,75,'봉'),('end_offset','단변 봉: 중앙에서 이동',45,0,45,'봉'),
+ ('side_offset','장변 봉: 중앙에서 이동',40,0,75,'봉'),('end_offset','단변 봉: 중앙에서 이동',30,0,45,'봉'),
  ('water_height','목표 수위 / 바닥 기준',11,2,30,'수위·바이알'),('finger_height','그리퍼 하단 / 바닥 기준',18,5,60,'수위·바이알'),
  ('sample_height','시료 액면 / 바닥 기준',10,1,30,'수위·바이알'),('vial_diameter','바이알 몸통 지름',16.6,10,19,'수위·바이알'),
  ('vial_height','바이알 높이',60,30,90,'수위·바이알')]
-DEFAULT={f[0]:float(f[2]) for f in FIELDS};DEFAULT['layout']='centered'
+REFERENCE_TRAY=json.loads((HERE/'07_R20_reference_metadata.json').read_text(encoding='utf-8'))
+RACK_MODELS={'uploaded_r20':'업로드 트레이 R20 · 원본 STEP','parametric':'간이 트레이 · 치수 직접 변경'}
+DEFAULT={f[0]:float(f[2]) for f in FIELDS};DEFAULT.update(layout='centered',rack_model='uploaded_r20',show_vials=False)
 LAYOUTS={'centered':'4봉 · 각 변 중앙','offset':'4봉 · 엇갈린 배치','eight':'8봉 · 회전 여유 감소'}
 def validate_config(raw):
  if not isinstance(raw,dict):raise ValueError('설정 파일은 JSON 객체여야 합니다.')
  unknown=set(raw)-set(DEFAULT)
  if unknown:raise ValueError('알 수 없는 설정 항목: '+', '.join(sorted(unknown)))
  c={**DEFAULT,**raw}
+ if 'rack_model' not in raw and any(k in raw for k in ('rack_width','rack_length','rack_height')):c['rack_model']='parametric'
+ if c['rack_model']=='parametric':
+  for k,v in {'rack_width':100.,'rack_length':190.,'rack_height':20.,'side_offset':60.,'end_offset':45.}.items():
+   if k not in raw:c[k]=v
+ if c['rack_model'] not in RACK_MODELS:raise ValueError('트레이 모델을 선택하세요.')
+ if not isinstance(c['show_vials'],bool):raise ValueError('바이알 표시 설정은 참/거짓이어야 합니다.')
+ if c['rack_model']=='uploaded_r20':
+  c.update(rack_width=REFERENCE_TRAY['width_x'],rack_length=REFERENCE_TRAY['length_z'],rack_height=round(REFERENCE_TRAY['height'],6))
  if c['layout'] not in LAYOUTS:raise ValueError('봉 배치를 선택하세요.')
  for key,label,default,lo,hi,group in FIELDS:
   if isinstance(c[key],bool):raise ValueError(label+': 숫자를 입력하세요.')
@@ -46,16 +78,20 @@ def validate_config(raw):
  if c['layout']!='centered':
   if c['side_offset']>l/2-6 or c['end_offset']>w/2-5:raise ValueError('봉 이동량이 랙 변을 벗어납니다. 이동량을 줄이세요.')
   if min(c['side_offset'],c['end_offset'])<5:raise ValueError('엇갈림/8봉 배치는 각 이동량을 5 mm 이상으로 설정하세요.')
- if 2*.11*w<c['vial_diameter']+.6+1:raise ValueError('바이알 홀 사이에 1 mm 여유가 없습니다. 랙 폭을 늘리거나 바이알 지름을 줄이세요.')
- if .236842*l<c['vial_diameter']+.6+1:raise ValueError('바이알 길이 방향 피치가 부족합니다.')
- if math.hypot(max(.11*w-5,0),max((22.5/190)*l-12,0))<c['vial_diameter']/2+.3+1:raise ValueError('중앙 그립 구멍과 바이알 홀 간격이 부족합니다. 랙 폭/길이를 늘리거나 바이알 지름을 줄이세요.')
+ if c['rack_model']=='parametric':
+  if 2*.11*w<c['vial_diameter']+.6+1:raise ValueError('바이알 홀 사이에 1 mm 여유가 없습니다. 랙 폭을 늘리거나 바이알 지름을 줄이세요.')
+  if .236842*l<c['vial_diameter']+.6+1:raise ValueError('바이알 길이 방향 피치가 부족합니다.')
+  if math.hypot(max(.11*w-5,0),max((22.5/190)*l-12,0))<c['vial_diameter']/2+.3+1:raise ValueError('중앙 그립 구멍과 바이알 홀 간격이 부족합니다. 랙 폭/길이를 늘리거나 바이알 지름을 줄이세요.')
+ elif c['show_vials'] and c['vial_diameter']>REFERENCE_TRAY['vial_hole_diameter']-.2:raise ValueError('원본 트레이 홀은 Ø17.6 mm입니다. 참고 바이알 지름을 17.4 mm 이하로 설정하세요.')
  if not c['sample_height']<=c['water_height']<=c['finger_height']-5:raise ValueError('시료 액면 ≤ 수위 ≤ 그리퍼 하단−5 mm 조건을 맞추세요.')
  if c['water_height']>=c['rack_height']:raise ValueError('수위가 랙 윗면보다 낮아야 합니다.')
  return c
 
 def derive_parameters(raw):
  c=validate_config(raw);w,l=c['rack_width'],c['rack_length'];cx=(w+c['rack_gap'])/2
- return dict(RACK_WIDTH_X=w,RACK_LENGTH_Z=l,RACK_HEIGHT=c['rack_height'],RACK_CENTERS_X=(-cx,cx),
+ return dict(RACK_MODEL=c['rack_model'],SHOW_VIALS=c['show_vials'],VIAL_BASE_ABOVE_FLOOR=6 if c['rack_model']=='uploaded_r20' else 2,
+ VIAL_POSITIONS=[(y,x) for x,y in REFERENCE_TRAY['native_hole_centers_xy']] if c['rack_model']=='uploaded_r20' else [(w*x,l*z) for x in (-.33,-.11,.11,.33) for z in (-67.5/190,-22.5/190,22.5/190,67.5/190)],
+ RACK_WIDTH_X=w,RACK_LENGTH_Z=l,RACK_HEIGHT=c['rack_height'],RACK_CENTERS_X=(-cx,cx),
  OPENING_WIDTH_X=w+2*c['opening_clearance'],OPENING_LENGTH_Z=l+2*c['opening_clearance'],FRAME_THICKNESS=c['frame_thickness'],
  ROD_DIAMETER=c['rod_diameter'],ROD_RACK_GAP=c['rod_gap'],ROD_BOTTOM_GAP=c['bottom_gap'],ROD_CHAMFER=c['rod_chamfer'],
  GUIDE_LAYOUT=c['layout'],GUIDE_LONG_SIDE_Z=0 if c['layout']=='centered' else c['side_offset'],GUIDE_END_X=0 if c['layout']=='centered' else c['end_offset'],
@@ -74,14 +110,24 @@ def allocate_run():
  raise RuntimeError('생성 폴더가 너무 많습니다.')
 
 class JobManager:
- def __init__(self):self.lock=threading.RLock();self.job=None;self.process=None
+ def __init__(self):self.lock=threading.RLock();self.job=None;self.process=None;self.directories={}
+ def set_storage(self,raw):
+  global STORAGE,RESULTS
+  with self.lock:
+   if self.job and self.job["status"]=="running":raise ValueError("생성이 끝난 뒤 저장 위치를 변경하세요.")
+   p=validate_storage(raw);p.mkdir(parents=True,exist_ok=True)
+   with tempfile.TemporaryFile(dir=p):pass
+   OUTPUT_PREF.write_text(json.dumps({"directory":str(p)},ensure_ascii=False,indent=2),encoding="utf-8")
+   STORAGE=p;RESULTS=p/OUTPUT_SUBDIR
+   return {"directory":str(STORAGE),"results":str(RESULTS)}
  def start(self,raw):
   c=validate_config(raw)
   with self.lock:
    if self.job and self.job['status']=='running':raise ValueError('CAD를 생성 중입니다. 완료 후 다시 실행하세요.')
    folder=allocate_run();config=folder/'00_Input_settings_R02.json';config.write_text(json.dumps(c,ensure_ascii=False,indent=2),encoding='utf-8')
    LAST.write_text(json.dumps(c,ensure_ascii=False,indent=2),encoding='utf-8')
-   self.job={'id':folder.name,'status':'running','folder':str(folder),'log':'CAD 형상을 생성하고 있습니다. 잠시 기다려 주세요.','files':[],'checks':None}
+   key=secrets.token_hex(8);self.directories[key]=folder
+   self.job={'id':key,'status':'running','folder':str(folder),'log':'CAD 형상을 생성하고 있습니다. 잠시 기다려 주세요.','files':[],'checks':None}
    self.process=None
    threading.Thread(target=self.worker,args=(folder,config),daemon=True).start()
    return self.snapshot()
@@ -123,17 +169,20 @@ def main():
   def do_GET(self):
    path=unquote(urlparse(self.path).path)
    if path=='/':
-    try:current=validate_config(json.loads(LAST.read_text(encoding='utf-8')))
+    try:
+     saved=json.loads(LAST.read_text(encoding='utf-8'));current=validate_config(saved) if 'rack_model' in saved else DEFAULT
     except (OSError,ValueError):current=DEFAULT
-    boot={'config':current,'fields':FIELDS,'layouts':LAYOUTS,'token':token,'root':str(PROJECT)}
+    boot={'config':current,'fields':FIELDS,'layouts':LAYOUTS,'rack_models':RACK_MODELS,'tray_metadata':REFERENCE_TRAY,'token':token,'root':str(PROJECT),'output_root':str(STORAGE),'output_base':str(RESULTS)}
     html=(HERE/'02_interface.html').read_text(encoding='utf-8').replace('__BOOT__',json.dumps(boot,ensure_ascii=False).replace('<','\\u003c'))
     return self.send(200,html,'text/html; charset=utf-8')
    if path=='/api/status':return self.send(200,jobs.snapshot())
    if path.startswith('/result/'):
     bits=path.split('/')
     if len(bits)!=4 or Path(bits[2]).name!=bits[2] or Path(bits[3]).name!=bits[3] or not bits[2] or not bits[3]:return self.send(400,{'error':'잘못된 파일 경로'})
-    f=(RESULTS/bits[2]/bits[3]).resolve()
-    if RESULTS.resolve() not in f.parents or not f.is_file():return self.send(404,{'error':'파일 없음'})
+    with jobs.lock:folder=jobs.directories.get(bits[2])
+    if folder is None:return self.send(404,{'error':'파일 없음'})
+    f=(folder/bits[3]).resolve()
+    if f.parent!=folder.resolve() or not f.is_file():return self.send(404,{'error':'파일 없음'})
     kind='image/png' if f.suffix=='.png' else 'application/octet-stream'
     return self.send(200,f.read_bytes(),kind)
    self.send(404,{'error':'찾을 수 없습니다.'})
@@ -143,6 +192,9 @@ def main():
     size=int(self.headers.get('Content-Length','0'))
     if size<0 or size>20000:raise ValueError('설정 파일이 너무 큽니다.')
     data=json.loads(self.rfile.read(size).decode('utf-8'))
+    if self.path=='/api/output':return self.send(200,jobs.set_storage(data.get('directory')))
+    if self.path=='/api/output/open':
+     STORAGE.mkdir(parents=True,exist_ok=True);open_local_path(STORAGE);return self.send(200,{'ok':True})
     if self.path=='/api/validate':return self.send(200,{'config':validate_config(data)})
     if self.path=='/api/generate':return self.send(200,jobs.start(data))
     if self.path=='/api/open':
@@ -154,9 +206,7 @@ def main():
       if name not in job['files']:raise ValueError('생성된 파일만 열 수 있습니다.')
       if job['status']!='done':raise ValueError('완료된 CAD만 열 수 있습니다.')
       f=f/name
-     if os.name=='nt':os.startfile(str(f))
-     elif sys.platform=='darwin':subprocess.Popen(['open',str(f)])
-     else:raise ValueError('이 PC에서는 자동 열기를 지원하지 않습니다. 파일 링크로 받으세요.')
+     open_local_path(f)
      return self.send(200,{'ok':True})
     if self.path=='/api/quit':
      if jobs.snapshot()['status']=='running':raise ValueError('생성 작업이 끝난 후 종료하세요.')

@@ -9,3 +9,5 @@ Latest variant: Rack_Guide_4Rod/R02, 4guides perrack/8total, two independent pla
 Latestuserlayout:Rack_Guide_Centered4/R02,onepinpersidecenter.4perrack/8total; weakyawlocation±8.0693deg. Earlieroffset4and8guidevariantsretainedforcomparison.
 
 R02RackGuideEditor: dimensionentry/presetselectionandCADgenerationbrowserUI. Newfamily05_Rack_Guide_Editor_R02; previousdesignfamiliespreserved.
+
+Latestreference:VialTrayR20 actualSTEP127.76x85.48x45. R02editorusesoriginalgeometrybydefault,retainsparametricmode;explicitoutputrootsettingadded.

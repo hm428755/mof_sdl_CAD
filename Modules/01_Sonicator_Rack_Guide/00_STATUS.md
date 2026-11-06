@@ -19,3 +19,6 @@ Oneguideateachsidecenter,4perrack/8total. Source02_Work/04_Rack_Guide_Centered4_
 
 ## R02 CAD Editor
 Portable local browser editor added under02_Work/05_Rack_Guide_Editor_R02; launch06_Open_CAD_Editor_R02.bat. Central4/offset4/eightlayouts and dimensioncontrols with validation; settingsround-trip; immutable per-run outputs under03_Preview/05_Rack_Guide_Editor_R02. SourceandpreviousCADvariantsremainunchanged. RuntimeislocalPC,notremotecloudAPI. WindowslauncheruntestedonactualWindows;LinuxChromiumandactualgenerationtested. Originalroutingtoolstillunavailable,prepare/checknotclaimed.
+
+## Actual uploaded tray R20 replaces old envelope assumption
+Source05_VialTray_Grip24x20_Preview_R20.stepimmutable, native127.76x85.48x45, onevalidsolid/16vialseats. R02fixturekept,actualtraymappednative(X,Y,Z)->bath(Y,Z,X),rigidrotation/translationonly. Defaultactualmodelhasreadonlydimensions;optionalparametricmodekeptforcomparison. NewWindowsdefaultstorageandeditableoutputroot;Python3.12missing-runtimeguidanceupdated.

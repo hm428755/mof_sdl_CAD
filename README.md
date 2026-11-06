@@ -1,3 +1,44 @@
+# MOF CAD 편집기 — 사용자 트레이 R20 적용
+
+보내주신 **트레이 STEP 원본(127.76 × 85.48 × 45 mm)**을 변형 없이 조립에 넣었습니다. R02 치구는 두 트레이·상판 2분할·트레이당 중앙 봉 4개를 유지합니다. 파일의 R20은 트레이 원본 버전이며, 치구의 R02와 구분합니다.
+
+- **[최신 편집기·CAD 전체 ZIP 다운로드](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/MOF_CAD_Editor_R02_TrayR20_Windows.zip)**
+- **[조립 STEP 바로 다운로드](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/Sonicator_R02_TrayR20_Assembly.step)** — Python을 실행하지 않고 CAD 프로그램에서 열 수 있습니다.
+
+![실제 트레이 원본을 반영한 조립](Downloads/Sonicator_R02_TrayR20_Preview.png)
+
+## 편집기 실행
+
+1. **Python 3.12 64비트**를 설치합니다. [공식 Windows 설치파일](https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe)
+2. ZIP을 압축 해제한 뒤 `06_Open_CAD_Editor_R02.bat`를 실행합니다.
+3. 화면의 트레이 모델은 **업로드 트레이 R20**이 기본값입니다. 원본 치수는 잠그고, 봉·상판·간격을 조정합니다.
+4. **저장 위치 → 저장 위치 적용 → CAD 생성** 순서로 사용합니다.
+
+Windows 기본 저장 루트:
+```text
+C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD
+```
+
+프로그램을 다른 폴더에서 실행해도 생성 결과는 선택한 저장 루트 아래의 `Modules/01_Sonicator_Rack_Guide/03_Preview/05_Rack_Guide_Editor_R02/NN_Editor_R02`에 저장됩니다. ZIP을 내려받는 위치는 브라우저 설정으로 별도 선택합니다.
+
+`No suitable Python runtime found`는 Python 3.12를 찾지 못한 오류입니다. 저장 경로 문제가 아닙니다. [오류·경로 안내](08_Save_Location_and_Python_Help_R02.md), [편집기 사용법](07_CAD_Editor_README_R02.md)을 참고하세요.
+
+## 이번 CAD 기준과 한계
+
+- 실제 원본 트레이 2개를 회전·이동만 하며, 홀·그립 형상을 그대로 유지합니다.
+- 트레이는 수조 X/Z 방향 85.48 × 127.76 mm, 높이 45 mm입니다.
+- 상판 개구 각각 89.48 × 131.76 mm, 트레이 간격 24 mm, 봉 틈새 1 mm입니다.
+- 입력 STEP은 트레이만 포함합니다. 실제 바이알 본체는 없으며, 선택적 바이알 원통은 가정한 참고 형상입니다.
+- 중앙 4봉은 계산상 약 ±9.7° 회전 여유가 남으므로 정밀한 반복 픽업 방향은 보장하지 않습니다.
+- 원본 모드에서는 트레이 치수를 고정합니다. `간이 트레이`를 선택하면 별도의 가상 형상을 치수로 수정할 수 있습니다.
+- Linux 브라우저와 실제 STEP 생성·간극을 검증했습니다. Windows 자체 실행과 로봇 운전·진동·클램프 성능은 검증되지 않았습니다. 제조 승인본이 아닌 Preview입니다.
+
+기존 설계는 비교용으로 보존했습니다. 아래는 이전 버전 설명이며 최신 기준은 위 내용입니다.
+
+<details><summary>이전 비교안과 사용법</summary>
+
+
+
 # MOF CAD 편집기 — 입력칸과 CAD 생성 버튼
 
 **코드를 고치지 않고 치수와 봉 배치를 바꾸는 Windows용 편집기입니다.**
@@ -106,3 +147,5 @@ python3 Modules/01_Sonicator_Rack_Guide/02_Work/02_Rack_Guide_R02/01_build_Previ
 ```
 
 이 명령은 R02 Preview를 재생성합니다. 변경안을 제작 승인본으로 덮어쓰지 말고 새 revision으로 보존하십시오. 첨부 원본 지시서의1랙배치보다 이후 사용자 요구인2랙/2분할상판을 우선했습니다. 입력문서는01_References에 원본으로 보존했습니다.
+
+</details>

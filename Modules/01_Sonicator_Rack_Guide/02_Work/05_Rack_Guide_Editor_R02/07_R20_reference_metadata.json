@@ -1,0 +1,92 @@
+{
+  "source_sha256": "e44c600b73f977db3b3d55350ebb0a78765f1d7e1b1f62d81dbe78f793f5a0da",
+  "source_file": "05_VialTray_Grip24x20_Preview_R20.step",
+  "native_bbox": [
+    -63.88,
+    63.88,
+    -42.74,
+    42.74,
+    0.0,
+    45.00000000000006
+  ],
+  "width_x": 85.48,
+  "length_z": 127.76,
+  "height": 45.00000000000006,
+  "volume_mm3": 112507.05598208372,
+  "native_hole_centers_xy": [
+    [
+      -52.5,
+      -19.0
+    ],
+    [
+      -52.5,
+      0.0
+    ],
+    [
+      -52.5,
+      19.0
+    ],
+    [
+      -38.0,
+      -31.5
+    ],
+    [
+      -38.0,
+      31.5
+    ],
+    [
+      -19.0,
+      -31.5
+    ],
+    [
+      -19.0,
+      31.5
+    ],
+    [
+      0.0,
+      -31.5
+    ],
+    [
+      0.0,
+      31.5
+    ],
+    [
+      19.0,
+      -31.5
+    ],
+    [
+      19.0,
+      31.5
+    ],
+    [
+      38.0,
+      -31.5
+    ],
+    [
+      38.0,
+      31.5
+    ],
+    [
+      52.5,
+      -19.0
+    ],
+    [
+      52.5,
+      0.0
+    ],
+    [
+      52.5,
+      19.0
+    ]
+  ],
+  "vial_hole_diameter": 17.6,
+  "upper_hole_diameter": 18.6,
+  "bottom_corner_radius": 3.18,
+  "transform": "native (X,Y,Z) -> bath (Y,Z,X), then translate (rack_center_X,-148,0); no scaling",
+  "assumed_vial_base_height": 6.0,
+  "reference_vial_tray_overlap_max_mm3": 0.0,
+  "grip_dimensions_from_filename_only": [
+    24,
+    20
+  ]
+}
