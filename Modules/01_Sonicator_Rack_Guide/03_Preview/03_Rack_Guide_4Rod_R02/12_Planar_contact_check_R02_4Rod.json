@@ -1,0 +1,32 @@
+{
+  "rank": 3,
+  "constraint_rows": [
+    [
+      -1.0,
+      0.0,
+      60.0
+    ],
+    [
+      1.0,
+      0.0,
+      60.0
+    ],
+    [
+      0.0,
+      1.0,
+      -45.0
+    ],
+    [
+      0.0,
+      -1.0,
+      -45.0
+    ]
+  ],
+  "positive_balancing_weights": [
+    0.21428571428571427,
+    0.21428571428571427,
+    0.2857142857142857,
+    0.2857142857142857
+  ],
+  "meaning": "Offset four-side contacts locally bound X, Z and both yaw directions in zero-clearance approximation. This is not preload, vibration, tolerance or full-motion validation."
+}

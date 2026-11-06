@@ -1,0 +1,13 @@
+R02_4Rod Preview readiness:
+PASS: valid generated shapes and reimported assembly,74solids.
+PASS: 2racks,32vials,2independentplates,4rods/module,8total.
+PASS: actual reference floor face covers every rack bottom corner.
+PASS: guide-to-rack1.0mm; guide-to-tank-reference1.463868mm minimum; no nominal contact.
+PASS: guideverticalfloor2mm; guidepairminimum32.449971mm.
+PASS: slot/openingligament2.05mm, nominalgapadjustment0.75~1.25mm.
+PASS: localcontactmatrixrank3withpositivebalancingweights; infinitesimalzero-clearance X/Z/yaw bound only.
+MEASURED: fixed-center firstcontactyaw-1.243073/+0.947658degrees, not zero-play.
+PASS CONDITIONAL: water/fingerconstraintonlyforassumedheights. Actualoperatingwater/gripperunknown.
+UNRUN: Windowsbat execution, originalroutingprepare/check, dynamicloads/vibration/stiffness, realrobotmotion.
+UNRESOLVED: rimclamp/bracketfastening andtableanchors, realrack/vialsupport/caps andgripgeometry.
+No manufacturingrelease. No operationalapproval.

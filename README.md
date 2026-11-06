@@ -1,3 +1,19 @@
+# 최신 R02 — 랙당 4봉 변형안
+
+랙2개/독립상판2개를 유지하고 랙당 가이드봉4개(총8개)로 줄였습니다. 네변에서 엇갈리게 배치했습니다. 기존8봉/랙 R02는 아래와 기존폴더에 보존합니다.
+
+새PC프로젝트폴더: `C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD`
+
+[Windows 설치·실행 안내](04_Windows_CAD_README_R02.md)
+
+[4봉 변형안 조립 STEP](Modules/01_Sonicator_Rack_Guide/03_Preview/03_Rack_Guide_4Rod_R02/01_Sonicator_Two_Racks_Split_Top_Preview_R02_4Rod.step)
+
+![4봉/랙 상면도](Modules/01_Sonicator_Rack_Guide/03_Preview/03_Rack_Guide_4Rod_R02/05_Top_Two_Plates_Preview_R02_4Rod.png)
+
+검토용 Preview입니다. 수위·실제그리퍼·클램프상세는 미확정이며, 로봇운전/제작승인본이아닙니다.
+
+---
+
 # MOF SDL CAD — 소니케이터 랙 가이드
 
 **Preview R02: 랙 2개 동시 수용 · 독립 상판 2개**
