@@ -1,0 +1,8 @@
+Editor startup repair / R02
+PASS:11configuration/resource/storage tests; gap44/60 derivative positions; missing full-archive files reported.
+PASS: visible logging wrapper launches real editor; startup URL and versions captured tolog.
+PASS: Chromium UI valid, gap60 and44 accepted, chosen output saved; actual R20 gap44 generation completed;8guides/42solids; result3Dimage loaded.
+PASS: actual generated gap44mm, rackcentersX±64.74, originaltraywidth85.48retained (no scaling); pin-to-tray1mm.
+WINDOWS: batchCRLF/quoting/runtime search and oldvenvpreservation reviewed but NOT executed onWindows.
+USERPC: current failure symptom still needed if repair does not start. Do not claim it is resolved on that PC.
+Gap44 is review example, not a confirmed new manufacturing default. Default editor gap remains24mm. All outputs Preview, remaining mechanical assumptions unchanged.

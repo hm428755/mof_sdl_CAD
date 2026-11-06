@@ -47,4 +47,12 @@ class ConfigurationTests(unittest.TestCase):
   self.assertEqual(len(p['VIAL_POSITIONS']),16);self.assertFalse(p['SHOW_VIALS'])
  def test_old_dimension_settings_remain_parametric(self):
   p=derive({'rack_width':100,'rack_length':190,'rack_height':20});self.assertEqual(p['RACK_MODEL'],'parametric')
+ def test_wider_gap_moves_both_racks_and_opens_same_tray(self):
+  p=derive({'rack_gap':44})
+  self.assertAlmostEqual(p['RACK_CENTERS_X'][0],-64.74);self.assertAlmostEqual(p['RACK_CENTERS_X'][1],64.74);self.assertEqual(p['RACK_WIDTH_X'],85.48)
+  self.assertAlmostEqual(derive({'rack_gap':60})['RACK_CENTERS_X'][1],72.74)
+ def test_startup_reports_missing_extracted_files(self):
+  start=runpy.run_path(str(Path(__file__).with_name('08_start_editor.py')))
+  with tempfile.TemporaryDirectory() as tmp:
+   with self.assertRaisesRegex(FileNotFoundError,'Extract the full editor ZIP'):start['check_files'](Path(tmp),Path(tmp)/'editor')
 if __name__=='__main__':unittest.main()

@@ -34,7 +34,7 @@ LAST=HERE/'05_Last_Settings_R02.json'
 # name,label,default,min,max,group; all dimensional entries mm.
 FIELDS=[
  ('rack_width','랙 폭 X',85.48,70,115,'랙·상판'),('rack_length','랙 길이 Z',127.76,100,195,'랙·상판'),
- ('rack_height','랙 높이',45,12,60,'랙·상판'),('rack_gap','두 랙 사이 간격',24,14,45,'랙·상판'),
+ ('rack_height','랙 높이',45,12,60,'랙·상판'),('rack_gap','두 랙 사이 간격',24,14,80,'랙·상판'),
  ('opening_clearance','상판 통과 여유 / 한쪽',2,1,4,'랙·상판'),('frame_thickness','상판 두께',3,2,8,'랙·상판'),
  ('rod_diameter','봉 지름',10,6,12,'봉'),('rod_gap','랙–봉 틈새',1,.5,3,'봉'),
  ('bottom_gap','봉–바닥 높이',2,1,8,'봉'),('rod_chamfer','봉 양끝 모따기',1,.5,2,'봉'),
@@ -216,6 +216,7 @@ def main():
  server=ThreadingHTTPServer(('127.0.0.1',args.port),Handler)
  url=f'http://127.0.0.1:{server.server_port}/'
  print('MOF CAD editor:',url,flush=True)
+ print('Keep this window open. If the browser does not open, paste the URL above into your browser.',flush=True)
  if not args.no_browser:threading.Timer(.4,lambda:webbrowser.open(url)).start()
  try:server.serve_forever()
  except KeyboardInterrupt:pass

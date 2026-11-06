@@ -1,3 +1,15 @@
+# 편집기 실행 수정본
+
+- **[최신 Repair ZIP 다운로드](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/MOF_CAD_Editor_R02_Repair.zip)**
+- [좌우 각각10mm 벌린 STEP 검토안 ZIP](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/Assembly_STEP_Gap44_Review.zip)
+- [실행·오류 확인 안내](09_Editor_Repair_README_R02.md)
+
+전체 압축 해제 후 `06_Open_CAD_Editor_R02.bat`를 실행하세요. 이번에는 창을 최소화하지 않고 시작 오류와 브라우저 주소를 표시하며, `CAD_Editor_Start.log`를 남깁니다. Python 3.12 64비트가 필요하다는 점은 동일합니다.
+
+랙 간격은 80 mm까지 입력할 수 있고, 실제 수조/부품 간섭을 추가 검사합니다. 기본 간격은24mm로 유지합니다. 이전 트레이 원본과 CAD 비교안은 보존했습니다.
+
+---
+
 # 조립 STEP 하나만 다운로드
 
 **[조립 STEP 1개 ZIP 받기](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/Assembly_STEP_Only.zip)**

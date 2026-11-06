@@ -22,3 +22,6 @@ Portable local browser editor added under02_Work/05_Rack_Guide_Editor_R02; launc
 
 ## Actual uploaded tray R20 replaces old envelope assumption
 Source05_VialTray_Grip24x20_Preview_R20.stepimmutable, native127.76x85.48x45, onevalidsolid/16vialseats. R02fixturekept,actualtraymappednative(X,Y,Z)->bath(Y,Z,X),rigidrotation/translationonly. Defaultactualmodelhasreadonlydimensions;optionalparametricmodekeptforcomparison. NewWindowsdefaultstorageandeditableoutputroot;Python3.12missing-runtimeguidanceupdated.
+
+## Editor startup repair
+Visible logged startup08_start_editor.py; Windowsruntimefallbackandbrokenvenvpreservation;completearchivecheck;gapinputrangeupto80mm. UserPCfailurestillrequiresactualerrorfeedback;Windowsnotexecutedhere. Gap44exampleisaReviewassumption(left/right10mmeach),notnewmanufacturingdefault.
