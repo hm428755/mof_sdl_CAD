@@ -16,3 +16,6 @@ Current user requested R02 and fewer rods. Added Rack_Guide_4Rod family:4guides 
 
 ## Latest user-selected layout: Centered4 / R02
 Oneguideateachsidecenter,4perrack/8total. Source02_Work/04_Rack_Guide_Centered4_R02,Preview03_Preview/04_Rack_Guide_Centered4_R02. Prioroffset4and8guidevariantsretained. Centeredlayoutfixed-centeryaw±8.0693deg;repeatablepickuporientationnotestablished. Windowslauncher05_Build_CAD_Centered4_R02.bat.
+
+## R02 CAD Editor
+Portable local browser editor added under02_Work/05_Rack_Guide_Editor_R02; launch06_Open_CAD_Editor_R02.bat. Central4/offset4/eightlayouts and dimensioncontrols with validation; settingsround-trip; immutable per-run outputs under03_Preview/05_Rack_Guide_Editor_R02. SourceandpreviousCADvariantsremainunchanged. RuntimeislocalPC,notremotecloudAPI. WindowslauncheruntestedonactualWindows;LinuxChromiumandactualgenerationtested. Originalroutingtoolstillunavailable,prepare/checknotclaimed.

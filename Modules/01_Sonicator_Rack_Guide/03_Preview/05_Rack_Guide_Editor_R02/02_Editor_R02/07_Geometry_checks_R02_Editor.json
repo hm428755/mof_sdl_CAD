@@ -1,0 +1,151 @@
+{
+  "manufacturer_bbox_mm": [
+    385.00000019999993,
+    299.85000010000005,
+    318.09000019999996
+  ],
+  "manufacturer_solid_count": 0,
+  "manufacturer_sha256": "e64536ebe914a9a11ef498c17eb93e9cb51664adc635031326b4bd3673b88af2",
+  "reimport_solid_count": 98,
+  "assembly_bbox_mm": [
+    385.0000002,
+    306.4500001000002,
+    322.4900001
+  ],
+  "rack_count": 2,
+  "vial_count": 32,
+  "top_plate_count": 2,
+  "guide_count": 16,
+  "per_module_guides": 8,
+  "locator_to_reference_min_distance_mm": 0.0,
+  "rack_centers_X_mm": [
+    -62.0,
+    62.0
+  ],
+  "rack_footprint_XZ_mm": [
+    224.0,
+    190.0
+  ],
+  "rack_to_rack_gap_mm": 24.0,
+  "plate_to_plate_gap_mm": 2.0,
+  "minimum_rod_to_reference_surface_distance_mm": 1.726890916972101,
+  "minimum_guide_pair_distance_mm": 2.0,
+  "minimum_rod_to_any_rack_distance_mm": 1.0,
+  "per_rack_reference_surface_distance_mm": [
+    0.0,
+    0.0
+  ],
+  "rack_bottom_corner_to_floor_face_max_mm": 0.0,
+  "rod_floor_vertical_gap_mm": 2.0,
+  "rod_length_mm": 148.0,
+  "rod_coordinates_XZ_mm": [
+    [
+      -118.0,
+      -60.0
+    ],
+    [
+      -118.0,
+      60.0
+    ],
+    [
+      -6.0,
+      -60.0
+    ],
+    [
+      -6.0,
+      60.0
+    ],
+    [
+      -92.0,
+      -101.0
+    ],
+    [
+      -92.0,
+      101.0
+    ],
+    [
+      -32.0,
+      -101.0
+    ],
+    [
+      -32.0,
+      101.0
+    ],
+    [
+      6.0,
+      -60.0
+    ],
+    [
+      6.0,
+      60.0
+    ],
+    [
+      118.0,
+      -60.0
+    ],
+    [
+      118.0,
+      60.0
+    ],
+    [
+      32.0,
+      -101.0
+    ],
+    [
+      32.0,
+      101.0
+    ],
+    [
+      92.0,
+      -101.0
+    ],
+    [
+      92.0,
+      101.0
+    ]
+  ],
+  "rack_nominal_guide_clearance_mm": 1.0,
+  "nominal_slot_opening_ligament_mm": 2.05,
+  "slot_adjusted_rack_clearance_range_mm": [
+    0.75,
+    1.25
+  ],
+  "ring_placement_XZ_each_side_mm": [
+    2.0,
+    2.0
+  ],
+  "fixed_center_positive_yaw_contact_deg": 0.9476584781521611,
+  "fixed_center_negative_yaw_contact_deg": -0.9476584781521611,
+  "assumed_water_height_mm": 11.0,
+  "assumed_water_constraints_satisfied": true,
+  "assumed_finger_water_clearance_mm": 7.0,
+  "rack_reference_volume_each_mm3": [
+    300847.2983489593,
+    300847.2983489593
+  ],
+  "assumed_robot_carried_mass_one_rack_kg": 2.0212477055421902,
+  "stationary_solids_volume_mm3": 334957.7591105081,
+  "assumed_stationary_steel_mass_kg": 2.6796620728840645,
+  "original_project_routing_check": "NOT RUN - original router not supplied",
+  "stage": "EDITOR PREVIEW: assumptions only; not a manufacturing or robot-operation approval.",
+  "editor_config": {
+    "rack_width": 100.0,
+    "rack_length": 190.0,
+    "rack_height": 20.0,
+    "rack_gap": 24.0,
+    "opening_clearance": 2.0,
+    "frame_thickness": 3.0,
+    "rod_diameter": 10.0,
+    "rod_gap": 1.0,
+    "bottom_gap": 2.0,
+    "rod_chamfer": 1.0,
+    "side_offset": 60.0,
+    "end_offset": 30.0,
+    "water_height": 11.0,
+    "finger_height": 18.0,
+    "sample_height": 10.0,
+    "vial_diameter": 16.6,
+    "vial_height": 60.0,
+    "layout": "eight"
+  }
+}

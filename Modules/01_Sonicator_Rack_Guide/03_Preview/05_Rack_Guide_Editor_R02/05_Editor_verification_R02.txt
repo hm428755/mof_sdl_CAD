@@ -1,0 +1,16 @@
+MOF CAD Editor R02 — verification
+
+PASS: 5 stdlib configuration tests: defaults, coupled dimensions/layout, invalid input rejection, defaults not mutated, monotonic non-overwriting output numbering.
+PASS: JavaScript syntax, actual Chromium page load without page exceptions.
+PASS: live SVG centered/offset/eight guide layouts, numeric inputs, validation error feedback.
+PASS: JSON settings download and import restore dimension values; reset defaults.
+PASS: requests without editor token rejected403; invalid dimensional combinations rejected400.
+PASS: CAD generation button, busy state, completed state, generated image loading and actual STEP download.
+PASS: generated offset model (edited): frame thickness4mm measured on reimported STEP; rack spacing25mm; opening clearance2.5mm each side;8guides; valid geometry.
+PASS: generated eight-per-rack model:16guides,98reimported solids, minimum guide/tank-reference gap1.726891mm.
+PASS: generated centered model on latest server code:8guides,74solids,24mm rack gap, fixed-center yaw±8.069301deg.
+PASS: each run in new numbered folder; old source/design variants retained.
+PASS: final editor ZIP integrity and required source/reference/launcher membership.
+
+UNRUN: Windows BAT execution, Windows default CAD file association/os.startfile. These were authored/reviewed but not executed on this Linux machine.
+LIMITATIONS: real-time preview is2D, generated3Dimage is static; rotate/measure STEP in an installed CAD viewer. Fixed manufacturer bath model, two racks/16vials-per-rack/M3hardware remain the supported family; arbitrary structural changes need source changes. Water/gripper/clamp/vibration/strength remain unapproved assumptions. This is Preview only. Original project revision router unavailable; its prepare/check is not claimed.

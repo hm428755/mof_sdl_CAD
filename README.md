@@ -1,3 +1,31 @@
+# MOF CAD 편집기 — 입력칸과 CAD 생성 버튼
+
+**코드를 고치지 않고 치수와 봉 배치를 바꾸는 Windows용 편집기입니다.**
+
+👉 **[편집기 포함 전체 ZIP 다운로드](https://github.com/hm428755/mof_sdl_CAD/raw/refs/heads/main/Downloads/MOF_CAD_Editor_R02_Windows.zip)**
+
+1. `C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD`에 압축을 풉니다.
+2. Python3.12가 설치된 상태에서 **`06_Open_CAD_Editor_R02.bat` 더블클릭**.
+3. 입력칸/배치를 변경 → **CAD 생성** → **3D STEP 열기**.
+
+처음에는 필요한 Python 패키지를 설치합니다. 이후 같은 PC에서 코드 수정이나 새 ZIP 없이 계속 생성할 수 있습니다. 생성마다 새 결과 폴더를 만들어 이전 안을 보존합니다.
+
+- 실시간2D배치, 중앙4봉/엇갈린4봉/8봉 선택
+- 랙·봉·상판·수위·바이알 입력과 잘못된 치수 조합 차단
+- 설정 저장/불러오기, 이전 생성 설정 재사용
+- STEP·PNG 생성 및 실제 형상 검사, 로그/오류 표시
+- Windows CAD 프로그램으로 STEP 열기
+
+[설치·사용 안내](07_CAD_Editor_README_R02.md)
+
+![실제 편집기 화면](Modules/01_Sonicator_Rack_Guide/03_Preview/05_Rack_Guide_Editor_R02/04_Editor_Interface_R02.png)
+
+실시간 미리보기는2D이고, 생성 후3D정지이미지도 표시합니다. 3D회전/측정은STEP을CAD프로그램에서진행합니다. Windows자체실행은미검증이며LinuxChromium에서브라우저/실제CAD생성을검증했습니다. 제조/로봇운전승인도구가아니며수위/그리퍼/클램프상세는미확정입니다.
+
+---
+
+## 이전 CAD 비교안
+
 # 최신 R02 — 각 변 중앙에 봉 1개씩
 
 사용자가 요청한 중앙4봉안을 별도 family로 추가했습니다. 랙2개/상판2분할 유지, 랙당4봉/총8봉입니다.

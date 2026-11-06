@@ -7,3 +7,5 @@ Created for uploaded sonicator task; not the original Zn-BDC index.
 Latest variant: Rack_Guide_4Rod/R02, 4guides perrack/8total, two independent plates. PortableWindows setup prepared for C:\Users\yeonseo kim\Desktop\MOF_SDL\Hardware\CAD. PreviousR02variant preserved. GitHub upload completed successfully.
 
 Latestuserlayout:Rack_Guide_Centered4/R02,onepinpersidecenter.4perrack/8total; weakyawlocation±8.0693deg. Earlieroffset4and8guidevariantsretainedforcomparison.
+
+R02RackGuideEditor: dimensionentry/presetselectionandCADgenerationbrowserUI. Newfamily05_Rack_Guide_Editor_R02; previousdesignfamiliespreserved.
