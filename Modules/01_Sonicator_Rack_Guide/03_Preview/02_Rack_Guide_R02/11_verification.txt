@@ -1,0 +1,26 @@
+PREVIEW R02 — TWO RACKS / TWO INDEPENDENT TOP MODULES
+
+PASS: original manufacturer STEP SHA256 preserved.
+PASS: every generated component shape valid; full assembly STEP reimport valid.
+PASS: reimported98solids + manufacturer surface references. Manufacturer original itself0solids (86shells), intentionally preserved.
+PASS: 2racks100X×190Z×20Y each,32vials,2topplates,16guides (8/module).
+PASS: combined rack footprint224X×190Z; flat floor264.642×204.642. Margins20.321X/7.321Z eachside. X±112 inside floor straight-edge corner start±117.321, so square reference rack corners do not enter floor R15 corners.
+PASS: rack gap24; topplate gap2; nearest guide pair surfacegap2 (1.5 at both maximum inward slot adjustment).
+PASS: all16guides to manufacturer surface minimum1.726891mm, at floor transition near end guides. This is different from2mm vertical floor clearance and is reported separately. Surface geometry distance does not replace a full volumetric collision test of the unclosed manufacturer reference.
+PASS: every guide to either rack minimum1mm. Rack to tank surface0 is intended flat-bottom contact.
+PASS: guidesØ10×148, bottomY=-146/floorY=-148, bothendsC1. No underwater plates or support blocks.
+PASS: own rack nominal clearance1, slot adjustment0.75–1.25, ring opening104×194 (rack100×190,2per-side). Slot3.4×3.9 and minimum opening ligament2.05. M3 blindtap conceptØ2.5×10; no helical threads modeled.
+PASS: fixed-center yaw contact±0.947658deg. Does not include combined translation/yaw, tolerances or vibration. Rack is constrained but not zero-play.
+PASS: coordinates for eachrod explicitly recorded in07JSON. Racks rotated90deg vsR01. Both major rack dimensions retained.
+PASS: above-water topplates separate, each157.75×257.5×3; center seamX±1. Inside rail9wide. Plate removal/robot swept-volume/stiffness NOT validated.
+PASS CONDITIONAL: assumed liquid10≤water11≤finger18−5=13 and racktop20>water11. Finger-water7. Actual operating water level, sample volume and gripper envelope missing. Not an operational approval.
+CONTACT: external locator top caps intentionally rest/weld against frame/rim atY2; minimum locator/reference distance0. Downturned lips are outside nominal rim by0.5, body by1.75. These tabs alone do not establish precision repeatability; final pads and retention required.
+
+Payload ASSUMED: one carried aluminum rack reference0.812288kg +16vials0.160 +16caps0.032 +liquid0.01696 +gripper0.800 +adapter0.200 =2.021248kg. All masses/material selections are assumptions except CAD reference volume. Two racks resident in tank do not imply simultaneous robot lifting. Actual robot payload, CoG, inertia, acceleration, coupling and measured masses pending.
+Stationary component volume334957.759mm³, uniformSUS8e-6kg/mm³ gives2.679662kg. Includes simplified hardware and table stops, excludes weld detail; not a final mass BOM.
+
+UNRESOLVED: clamp pad/screw/thread/retaining geometry and bracket attachment; table material/anchors; springwasher and threadlocker selection; innerrail stiffness and ultrasonic vibration; real rack/vial support and cap/grip envelopes; robot swept volumes; actual low-water suitability.
+NO STL exported: manifold mesh checks N/A.
+Original project routing prepare/check NOT RUN: source project/tools absent. Standalone revision folder used; R01 preserved. No Output/Release produced.
+
+Outcome: actual STEP files suitable for layout review, not manufacturing release or robot-operation validation.
